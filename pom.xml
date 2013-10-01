@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- Usage: -->
+	<!-- Starts Coordinator: mvn scala:run -->
+	<!-- Starts Worker: mvn scala:run -Dclass=Worker -->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.moten.david</groupId>
+	<artifactId>remdis</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>${project.artifactId}</name>
+	<properties>
+		<encoding>UTF-8</encoding>
+		<scala.version>2.9.0-1</scala.version>
+		<scala.plugin.version>2.15.2</scala.plugin.version>
+		<class>Coordinator</class>
+		<mainClass>org.moten.david.remdis.${class}</mainClass>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.scala-lang</groupId>
+			<artifactId>scala-library</artifactId>
+			<version>${scala.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<sourceDirectory>src/main/scala</sourceDirectory>
+		<testSourceDirectory>src/test/scala</testSourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.scala-tools</groupId>
+				<artifactId>maven-scala-plugin</artifactId>
+				<version>${scala.plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<args>
+								<arg>-deprecation</arg>
+								<arg>-make:transitive</arg>
+								<arg>-dependencyfile</arg>
+								<arg>${project.build.directory}/.scala_dependencies</arg>
+							</args>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<forkMode>pertest</forkMode>
+					<argLine>-Xms512m -Xmx512m</argLine>
+					<testFailureIgnore>false</testFailureIgnore>
+					<skip>false</skip>
+					<useFile>false</useFile>
+					<disableXmlReport>true</disableXmlReport>
+					<!-- If you have classpath issue like NoDefClassError,... -->
+					<!-- useManifestOnlyJar>false</useManifestOnlyJar -->
+					<includes>
+						<include>**/*Test.*</include>
+						<include>**/*Suite.*</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
