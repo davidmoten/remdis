@@ -5,7 +5,7 @@ Scala project for distributing self contained jar based tasks to remote workers 
 
 Status: *alpha*
 
-This project was created to serve as a map-reduce manager for the navier-stokes project.
+This project was created to serve as a map-reduce manager for the [navier-stokes](https://github.com/davidmoten/navier-stokes) project.
 
 Getting started
 -------------------
